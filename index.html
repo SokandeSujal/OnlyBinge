@@ -1,0 +1,256 @@
+
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>NekoFlix - Premium Streaming Platform</title>
+<link rel=stylesheet href=streaming-platform.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css>
+<script src=https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js></script>
+<style>.content-grid,.content-grid-full{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:15px;margin-bottom:30px}.movie-card{position:relative;aspect-ratio:2/3;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s ease;background:var(--secondary-bg)}.movie-card:hover{transform:scale(1.05);z-index:10}.movie-card img{width:100%;height:100%;object-fit:cover}.movie-info{position:absolute;bottom:0;left:0;right:0;padding:15px;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);transform:translateY(100%);transition:transform .3s ease}.movie-card:hover .movie-info{transform:translateY(0)}.movie-title{font-size:.9rem;font-weight:600;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.movie-meta{display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--text-secondary)}.movie-rating{display:flex;align-items:center;gap:3px}.movie-rating i{color:var(--accent-primary)}.search-results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.notification{position:fixed;top:20px;right:20px;background:var(--surface-bg);border-radius:8px;padding:16px 20px;box-shadow:0 10px 30px rgba(0,0,0,.3);display:flex;align-items:center;gap:12px;z-index:3000;transform:translateX(100%);transition:transform .3s ease}.notification.show{transform:translateX(0)}.notification.success{border-left:4px solid var(--success)}.notification.error{border-left:4px solid var(--error)}.notification-icon{font-size:1.5rem}.notification.success .notification-icon{color:var(--success)}.notification.error .notification-icon{color:var(--error)}.fullscreen-btn{background:rgba(0,0,0,.5);border:none;color:#fff;border-radius:4px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .2s}.fullscreen-btn:hover{background:rgba(0,0,0,.7)}.player-controls-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.player-modal.fullscreen{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:4000;background:#000}.player-modal.fullscreen .player-container{width:100%;height:100%;max-width:none;max-height:none;border-radius:0}.player-modal.fullscreen .video-frame{height:calc(100vh - 150px)}.player-modal.fullscreen .player-controls{padding:15px}</style>
+</head>
+<body>
+<div class=loading-screen>
+<div class=loader>
+<div class=loader-spinner></div>
+<div class=loader-text>NEKOFLIX</div>
+</div>
+</div>
+<div class=auth-container id=auth-container>
+<div class=auth-backdrop></div>
+<div class=auth-box>
+<div class=auth-logo>
+<h1>NEKOFLIX</h1>
+<p>Premium Streaming Entertainment</p>
+</div>
+<div class="auth-form active" id=signin-form>
+<h2>Sign In</h2>
+<form>
+<div class=form-group>
+<input type=email id=signin-email required placeholder=" ">
+<label>Email address</label>
+</div>
+<div class=form-group>
+<input type=password id=signin-password required placeholder=" ">
+<label>Password</label>
+</div>
+<button type=submit class=btn-primary>Sign In</button>
+</form>
+<div class=auth-footer>
+<p>New to NekoFlix? <a href=# id=show-signup>Sign up now</a></p>
+<p><a href=# id=show-reset>Forgot password?</a></p>
+</div>
+</div>
+<div class=auth-form id=signup-form>
+<h2>Create Account</h2>
+<form>
+<div class=form-group>
+<input type=email id=signup-email required placeholder=" ">
+<label>Email address</label>
+</div>
+<div class=form-group>
+<input type=password id=signup-password required placeholder=" ">
+<label>Password (min 6 characters)</label>
+</div>
+<div class=form-group>
+<input type=password id=signup-confirm required placeholder=" ">
+<label>Confirm password</label>
+</div>
+<button type=submit class=btn-primary>Sign Up</button>
+</form>
+<div class=auth-footer>
+<p>
+Already have an account? <a href=# id=show-signin>Sign in</a>
+</p>
+</div>
+</div>
+<div class=auth-form id=reset-form>
+<h2>Reset Password</h2>
+<p class=auth-description>
+We'll send you a password reset link to your email.
+</p>
+<form>
+<div class=form-group>
+<input type=email id=reset-email required placeholder=" ">
+<label>Email address</label>
+</div>
+<button type=submit class=btn-primary>Send Reset Link</button>
+</form>
+<div class=auth-footer>
+<p><a href=# id=back-signin>Back to Sign In</a></p>
+</div>
+</div>
+</div>
+</div>
+<header class=main-header id=main-header>
+<div class=header-left>
+<div class=logo>NEKOFLIX</div>
+<nav class=main-nav>
+<a href=# class="nav-link active" data-section=home>Home</a>
+<a href=# class=nav-link data-section=movies>Movies</a>
+<a href=# class=nav-link data-section=tv>TV Shows</a>
+<a href=# class=nav-link data-section=mylist>My List</a>
+</nav>
+</div>
+<div class=header-right>
+<div class=search-container>
+<input class=search-input id=main-search-input placeholder="Search movies & shows">
+<i class="fas fa-search search-icon"></i>
+</div>
+<div class=user-menu>
+<img src=https://avatar.iran.liara.run/public/43 alt="User Avatar" class=user-avatar>
+<div class=user-dropdown>
+<a href=# id=account-link><i class="fas fa-user"></i> Account</a>
+<a href=# id=logout-link><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+</div>
+</div>
+</div>
+</header>
+<section class=hero-section>
+<div class=hero-content>
+<h1 class=hero-title>Featured Today</h1>
+<p class=hero-description>
+Discover the most amazing movies and shows, handpicked just for you.
+</p>
+<div class=hero-actions>
+<button class=btn-hero-primary>
+<i class="fas fa-play"></i> Play
+</button>
+<button class=btn-hero-secondary>
+<i class="fas fa-info-circle"></i> More Info
+</button>
+</div>
+</div>
+<div class=hero-gradient></div>
+</section>
+<main class=main-content>
+<section class="content-section active" id=home-section>
+<div class=content-row>
+<div class=section-header>
+<h2 class=section-title>Trending Now</h2>
+</div>
+<div class=content-grid id=trending-grid>
+</div>
+</div>
+<div class=content-row>
+<div class=section-header>
+<h2 class=section-title>Popular Movies</h2>
+</div>
+<div class=content-grid id=popular-movies-grid></div>
+</div>
+<div class=content-row>
+<div class=section-header>
+<h2 class=section-title>Popular TV Shows</h2>
+</div>
+<div class=content-grid id=popular-tv-grid></div>
+</div>
+</section>
+<section class=content-section id=movies-section>
+<div class=section-header>
+<h2>Movies</h2>
+<div class=genre-filters>
+<button class="genre-btn active" data-genre=all>All</button>
+<button class=genre-btn data-genre=28>Action</button>
+<button class=genre-btn data-genre=35>Comedy</button>
+<button class=genre-btn data-genre=18>Drama</button>
+<button class=genre-btn data-genre=27>Horror</button>
+<button class=genre-btn data-genre=878>Sci-Fi</button>
+</div>
+</div>
+<div class=content-grid-full id=movies-grid></div>
+</section>
+<section class=content-section id=tv-section>
+<div class=section-header>
+<h2>TV Shows</h2>
+<div class=genre-filters>
+<button class="genre-btn active" data-genre=all>All</button>
+<button class=genre-btn data-genre=10759>Action</button>
+<button class=genre-btn data-genre=35>Comedy</button>
+<button class=genre-btn data-genre=18>Drama</button>
+<button class=genre-btn data-genre=9648>Mystery</button>
+<button class=genre-btn data-genre=10765>Sci-Fi</button>
+</div>
+</div>
+<div class=content-grid-full id=tv-grid></div>
+</section>
+<section class=content-section id=mylist-section>
+<div class=section-header>
+<h2>My List</h2>
+</div>
+<div class=content-grid-full id=mylist-grid></div>
+</section>
+<section class=content-section id=search-section>
+<div class=search-results-header>
+<h2>Search Results</h2>
+<button class=view-all-btn id=clear-search>Clear Search</button>
+</div>
+<div class=content-grid-full id=search-grid></div>
+</section>
+</main>
+<div class=player-modal id=player-modal>
+<div class=player-container>
+<div class=player-header>
+<button class=player-close id=player-close>
+<i class="fas fa-times"></i>
+</button>
+</div>
+<iframe class=video-frame id=video-frame></iframe>
+<div class=player-controls>
+<div class=player-info>
+<h3 id=player-title></h3>
+<p id=player-description></p>
+</div>
+<div class=source-selection>
+<label>Video Source:</label>
+<div class=source-buttons id=source-buttons>
+</div>
+</div>
+<div class=tv-controls id=tv-controls>
+<div class=season-selection>
+<label>Season:</label>
+<select id=season-select></select>
+</div>
+<div class=episodes-list id=episodes-list></div>
+</div>
+<div class=player-controls-bottom>
+<div class=player-time id=player-time>
+<span id=current-time>0:00</span> /
+<span id=total-time>0:00</span>
+</div>
+<button class=fullscreen-btn id=fullscreen-btn>
+<i class="fas fa-expand"></i> Full Screen
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class=account-modal id=account-modal>
+<div class=account-container>
+<button class=modal-close id=account-close>
+<i class="fas fa-times"></i>
+</button>
+<div class=account-content>
+<h2>Account Settings</h2>
+<div class=account-info>
+<div class=info-row>
+<label>Email:</label>
+<span id=account-email></span>
+</div>
+<div class=info-row>
+<label>Member Since:</label>
+<span id=account-member-since></span>
+</div>
+</div>
+<div class=account-actions>
+<button class=btn-secondary id=change-password>
+Change Password
+</button>
+</div>
+</div>
+</div>
+</div>
+<div id=notification-container></div>
+</body>
+<script src=streaming-platform.js></script>
+</html>
