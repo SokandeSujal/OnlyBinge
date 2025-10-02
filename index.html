@@ -25,86 +25,177 @@
 
     <div class="auth-container" id="auth-container">
       <div class="auth-backdrop"></div>
-      <div class="auth-box">
-        <div class="auth-logo">
-          <h1>ONLYBINGE</h1>
-          <p>Premium Streaming Entertainment</p>
-        </div>
+      <div class="auth-layout">
+        <!-- Left Side - Auth Forms -->
+        <div class="auth-left">
+          <div class="auth-box">
+            <div class="auth-logo">
+              <h1>ONLYBINGE</h1>
+              <p>Premium Streaming Entertainment</p>
+            </div>
 
-        <div class="auth-form active" id="signin-form">
-          <h2>Sign In</h2>
-          <form>
-            <div class="form-group">
-              <input type="email" id="signin-email" required placeholder=" " />
-              <label>Email address</label>
+            <div class="auth-form active" id="signin-form">
+              <h2>Sign In</h2>
+              <form>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    id="signin-email"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Email address</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="signin-password"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Password</label>
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+              </form>
+              <div class="auth-footer">
+                <p>
+                  New to OnlyBinge? <a href="#" id="show-signup">Sign up now</a>
+                </p>
+                <p><a href="#" id="show-reset">Forgot password?</a></p>
+              </div>
             </div>
-            <div class="form-group">
-              <input
-                type="password"
-                id="signin-password"
-                required
-                placeholder=" "
-              />
-              <label>Password</label>
+
+            <div class="auth-form" id="signup-form">
+              <h2>Create Account</h2>
+              <form>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    id="signup-email"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Email address</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="signup-password"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Password (min 6 characters)</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="signup-confirm"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Confirm password</label>
+                </div>
+                <button type="submit" class="btn-primary">Sign Up</button>
+              </form>
+              <div class="auth-footer">
+                <p>
+                  Already have an account?
+                  <a href="#" id="show-signin">Sign in</a>
+                </p>
+              </div>
             </div>
-            <button type="submit" class="btn-primary">Sign In</button>
-          </form>
-          <div class="auth-footer">
-            <p>
-              New to OnlyBinge? <a href="#" id="show-signup">Sign up now</a>
-            </p>
-            <p><a href="#" id="show-reset">Forgot password?</a></p>
+
+            <div class="auth-form" id="reset-form">
+              <h2>Reset Password</h2>
+              <p class="auth-description">
+                We'll send you a password reset link to your email.
+              </p>
+              <form>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    id="reset-email"
+                    required
+                    placeholder=" "
+                  />
+                  <label>Email address</label>
+                </div>
+                <button type="submit" class="btn-primary">
+                  Send Reset Link
+                </button>
+              </form>
+              <div class="auth-footer">
+                <p><a href="#" id="back-signin">Back to Sign In</a></p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="auth-form" id="signup-form">
-          <h2>Create Account</h2>
-          <form>
-            <div class="form-group">
-              <input type="email" id="signup-email" required placeholder=" " />
-              <label>Email address</label>
+        <!-- Right Side - Pricing & USP -->
+        <div class="auth-right">
+          <div class="pricing-content">
+            <h2 class="pricing-headline">Watch Unlimited Movies & Shows</h2>
+            <div class="pricing-highlight">
+              <span class="pricing-currency">₹</span>
+              <span class="pricing-amount">50</span>
+              <span class="pricing-period">/month</span>
             </div>
-            <div class="form-group">
-              <input
-                type="password"
-                id="signup-password"
-                required
-                placeholder=" "
-              />
-              <label>Password (min 6 characters)</label>
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                id="signup-confirm"
-                required
-                placeholder=" "
-              />
-              <label>Confirm password</label>
-            </div>
-            <button type="submit" class="btn-primary">Sign Up</button>
-          </form>
-          <div class="auth-footer">
-            <p>
-              Already have an account? <a href="#" id="show-signin">Sign in</a>
-            </p>
-          </div>
-        </div>
 
-        <div class="auth-form" id="reset-form">
-          <h2>Reset Password</h2>
-          <p class="auth-description">
-            We'll send you a password reset link to your email.
-          </p>
-          <form>
-            <div class="form-group">
-              <input type="email" id="reset-email" required placeholder=" " />
-              <label>Email address</label>
+            <div class="pricing-comparison">
+              <h3>Compare with Others</h3>
+              <div class="comparison-table">
+                <div class="comparison-row competitor">
+                  <span class="service-name">Netflix</span>
+                  <span class="service-price">₹649/mo</span>
+                </div>
+                <div class="comparison-row competitor">
+                  <span class="service-name">Amazon Prime</span>
+                  <span class="service-price">₹299/mo</span>
+                </div>
+                <div class="comparison-row competitor">
+                  <span class="service-name">Disney+ Hotstar</span>
+                  <span class="service-price">₹299/mo</span>
+                </div>
+                <div class="comparison-row highlight">
+                  <span class="service-name">OnlyBinge</span>
+                  <span class="service-price">₹50/mo</span>
+                </div>
+              </div>
             </div>
-            <button type="submit" class="btn-primary">Send Reset Link</button>
-          </form>
-          <div class="auth-footer">
-            <p><a href="#" id="back-signin">Back to Sign In</a></p>
+
+            <div class="usp-list">
+              <div class="usp-item">
+                <i class="fas fa-bolt"></i>
+                <span>Instant streaming - No downloads needed</span>
+              </div>
+              <div class="usp-item">
+                <i class="fas fa-clock"></i>
+                <span
+                  >Save hours compared to free sites with multiple
+                  redirects</span
+                >
+              </div>
+              <div class="usp-item">
+                <i class="fas fa-play-circle"></i>
+                <span>Watch while others are still downloading</span>
+              </div>
+              <div class="usp-item">
+                <i class="fas fa-film"></i>
+                <span>Access to thousands of movies and TV shows</span>
+              </div>
+              <div class="usp-item">
+                <i class="fas fa-ban"></i>
+                <span>No ads, no waiting</span>
+              </div>
+              <div class="usp-item">
+                <i class="fas fa-coffee"></i>
+                <span>₹50/month - Less than a cup of coffee</span>
+              </div>
+            </div>
+
+            <button class="btn-subscribe" id="open-payment-modal">
+              <i class="fas fa-crown"></i> Subscribe Now - ₹50/month
+            </button>
           </div>
         </div>
       </div>
@@ -121,6 +212,9 @@
         </nav>
       </div>
       <div class="header-right">
+        <div class="subscription-badge">
+          <i class="fas fa-crown"></i> ₹50/month
+        </div>
         <div class="search-container">
           <i class="fas fa-search search-icon"></i>
           <input
@@ -138,6 +232,9 @@
           <div class="user-dropdown">
             <a href="#" id="account-link"
               ><i class="fas fa-user"></i> Account</a
+            >
+            <a href="#" id="subscribe-link"
+              ><i class="fas fa-crown"></i> Subscribe</a
             >
             <a href="#" id="logout-link"
               ><i class="fas fa-sign-out-alt"></i> Sign Out</a
@@ -164,7 +261,8 @@
             <i class="fas fa-play"></i> Watch Now
           </button>
           <button class="hero-bookmark" id="hero-bookmark-btn-new">
-            <i class="fas fa-bookmark-o"></i> Add to List
+            <i class="far fa-bookmark"></i>
+            <span>Add to List</span>
           </button>
         </div>
       </div>
@@ -173,6 +271,18 @@
 
     <main class="main-content" id="main-content">
       <section class="content-section active" id="home-section">
+        <!-- Continue Watching Section -->
+        <div
+          class="content-row"
+          id="continue-watching-row"
+          style="display: none"
+        >
+          <div class="section-header">
+            <h2 class="section-title">Continue Watching</h2>
+          </div>
+          <div class="content-grid" id="continue-watching-grid"></div>
+        </div>
+
         <div class="content-row">
           <div class="section-header">
             <h2 class="section-title">Trending Now</h2>
@@ -313,6 +423,78 @@
             <button class="btn-secondary" id="change-password">
               Change Password
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="payment-modal">
+      <div class="payment-overlay"></div>
+      <div class="payment-container">
+        <button class="modal-close" id="payment-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="payment-content">
+          <h2>Subscribe to OnlyBinge</h2>
+          <div class="payment-price">
+            <span class="payment-currency">₹</span>
+            <span class="payment-amount">50</span>
+            <span class="payment-period">/month</span>
+          </div>
+
+          <div class="payment-qr-section">
+            <h3>Scan QR Code to Pay</h3>
+            <div class="qr-code-container">
+              <img
+                src="payment-qr.png"
+                alt="UPI QR Code"
+                class="qr-code"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <div class="qr-placeholder" style="display: none">
+                <i class="fas fa-qrcode"></i>
+                <p>QR Code</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-divider">
+            <span>OR</span>
+          </div>
+
+          <div class="payment-upi-section">
+            <h3>Pay using UPI ID</h3>
+            <div class="upi-id-container">
+              <span class="upi-id">sokandesujal-1@okaxis</span>
+              <button
+                class="btn-copy"
+                onclick="navigator.clipboard.writeText('sokandesujal-1@okaxis'); showNotification('UPI ID copied!', 'success')"
+              >
+                <i class="fas fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <div class="payment-instructions">
+            <h4>Instructions:</h4>
+            <ol>
+              <li>Scan the QR code or pay to the UPI ID above</li>
+              <li>Complete the payment of ₹50</li>
+              <li>
+                Contact admin with your payment screenshot to activate your
+                account
+              </li>
+              <li>
+                Admin will verify and activate your subscription within 24 hours
+              </li>
+            </ol>
+          </div>
+
+          <div class="payment-contact">
+            <p><strong>Contact Admin:</strong></p>
+            <p>Email: sokandesujal@gmail.com</p>
+            <p>WhatsApp: +91 8669668003</p>
           </div>
         </div>
       </div>
