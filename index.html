@@ -223,6 +223,9 @@
             placeholder="Search movies & shows"
           />
         </div>
+        <button id="pay-now-btn" class="pay-now-btn" style="display: none">
+          <i class="fas fa-wallet"></i> Pay Now
+        </button>
         <div class="user-menu">
           <img
             src="https://avatar.iran.liara.run/public/43"
@@ -418,6 +421,13 @@
               <label>Member Since:</label>
               <span id="account-member-since"></span>
             </div>
+            <div class="info-row">
+              <label>Subscription Status:</label>
+              <span
+                id="subscription-status-text"
+                class="subscription-status"
+              ></span>
+            </div>
           </div>
           <div class="account-actions">
             <button class="btn-secondary" id="change-password">
@@ -495,6 +505,32 @@
             <p><strong>Contact Admin:</strong></p>
             <p>Email: sokandesujal@gmail.com</p>
             <p>WhatsApp: +91 8669668003</p>
+            <div class="payment-divider">
+              <span>ALREADY PAID?</span>
+            </div>
+
+            <div class="transaction-id-section">
+              <h3>Submit Transaction ID</h3>
+              <p class="transaction-note">
+                If you've already made the payment, enter your transaction ID
+                below to verify your payment.
+              </p>
+              <div class="transaction-id-container">
+                <input
+                  type="text"
+                  id="transaction-id-input"
+                  class="transaction-id-input"
+                  placeholder="Enter your transaction ID"
+                  maxlength="50"
+                />
+                <button
+                  id="submit-transaction-btn"
+                  class="btn-submit-transaction"
+                >
+                  <i class="fas fa-check"></i> Submit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
