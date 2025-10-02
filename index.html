@@ -1,1 +1,356 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" /><title>NekoFlix - Premium Streaming Platform</title><link rel="stylesheet" href="streaming-platform.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script></head><body><div class="loading-screen" id="loading-screen"><div class="loader"><div class="loader-spinner"></div><div class="loader-text">NEKOFLIX</div></div></div><div class="auth-container" id="auth-container"><div class="auth-backdrop"></div><div class="auth-box"><div class="auth-logo"><h1>NEKOFLIX</h1><p>Premium Streaming Entertainment</p></div><div class="auth-form active" id="signin-form"><h2>Sign In</h2><form><div class="form-group"><input type="email" id="signin-email" required placeholder=" " /><label>Email address</label></div><div class="form-group"><input type="password" id="signin-password" required placeholder=" " /><label>Password</label></div><button type="submit" class="btn-primary">Sign In</button></form><div class="auth-footer"><p>New to NekoFlix? <a href="#" id="show-signup">Sign up now</a></p><p><a href="#" id="show-reset">Forgot password?</a></p></div></div><div class="auth-form" id="signup-form"><h2>Create Account</h2><form><div class="form-group"><input type="email" id="signup-email" required placeholder=" " /><label>Email address</label></div><div class="form-group"><input type="password" id="signup-password" required placeholder=" " /><label>Password (min 6 characters)</label></div><div class="form-group"><input type="password" id="signup-confirm" required placeholder=" " /><label>Confirm password</label></div><button type="submit" class="btn-primary">Sign Up</button></form><div class="auth-footer"><p> Already have an account? <a href="#" id="show-signin">Sign in</a></p></div></div><div class="auth-form" id="reset-form"><h2>Reset Password</h2><p class="auth-description"> We'll send you a password reset link to your email. </p><form><div class="form-group"><input type="email" id="reset-email" required placeholder=" " /><label>Email address</label></div><button type="submit" class="btn-primary">Send Reset Link</button></form><div class="auth-footer"><p><a href="#" id="back-signin">Back to Sign In</a></p></div></div></div></div><header class="main-header" id="main-header"><div class="header-left"><div class="logo">NEKOFLIX</div><nav class="main-nav"><a href="#" class="nav-link active" data-section="home">Home</a><a href="#" class="nav-link" data-section="movies">Movies</a><a href="#" class="nav-link" data-section="tv">TV Shows</a><a href="#" class="nav-link" data-section="mylist">My List</a></nav></div><div class="header-right"><div class="search-container"><i class="fas fa-search search-icon"></i><input class="search-input" id="main-search-input" placeholder="Search movies & shows" /></div><div class="user-menu"><img src="https://avatar.iran.liara.run/public/43" alt="User Avatar" class="user-avatar" /><div class="user-dropdown"><a href="#" id="account-link" ><i class="fas fa-user"></i> Account</a ><a href="#" id="logout-link" ><i class="fas fa-sign-out-alt"></i> Sign Out</a ></div></div></div></header><section class="hero-section" id="hero-section"><div class="hero-backdrop"></div><div class="hero-content"><h1 class="hero-title" id="hero-title">Featured Today</h1><div class="hero-meta" id="hero-meta"><span class="hero-rating"><i class="fas fa-star"></i> 8.5</span><span>2023</span><span>Action, Adventure</span></div><p class="hero-description" id="hero-description"> Discover the most amazing movies and shows, handpicked just for you. </p><div class="hero-actions"><button class="btn-hero-primary" id="hero-watch-btn"><i class="fas fa-play"></i> Watch Now </button><button class="btn-hero-secondary" id="hero-bookmark-btn"><i class="fas fa-bookmark"></i> My Wishlist </button></div></div><div class="hero-gradient"></div></section><main class="main-content" id="main-content"><section class="content-section active" id="home-section"><div class="content-row"><div class="section-header"><h2 class="section-title">Trending Now</h2></div><div class="content-grid" id="trending-grid"></div></div><div class="content-row"><div class="section-header"><h2 class="section-title">Popular Movies</h2></div><div class="content-grid" id="popular-movies-grid"></div></div><div class="content-row"><div class="section-header"><h2 class="section-title">Popular TV Shows</h2></div><div class="content-grid" id="popular-tv-grid"></div></div></section><section class="content-section" id="movies-section"><div class="section-header"><h2>Movies</h2><div class="genre-filters"><button class="genre-btn active" data-genre="all">All</button><button class="genre-btn" data-genre="28">Action</button><button class="genre-btn" data-genre="35">Comedy</button><button class="genre-btn" data-genre="18">Drama</button><button class="genre-btn" data-genre="27">Horror</button><button class="genre-btn" data-genre="878">Sci-Fi</button></div></div><div class="content-grid-full" id="movies-grid"></div></section><section class="content-section" id="tv-section"><div class="section-header"><h2>TV Shows</h2><div class="genre-filters"><button class="genre-btn active" data-genre="all">All</button><button class="genre-btn" data-genre="10759">Action</button><button class="genre-btn" data-genre="35">Comedy</button><button class="genre-btn" data-genre="18">Drama</button><button class="genre-btn" data-genre="9648">Mystery</button><button class="genre-btn" data-genre="10765">Sci-Fi</button></div></div><div class="content-grid-full" id="tv-grid"></div></section><section class="content-section" id="mylist-section"><div class="section-header"><h2>My List</h2></div><div class="content-grid-full" id="mylist-grid"></div></section><section class="content-section" id="search-section"><div class="search-results-header"><h2>Search Results</h2><button class="view-all-btn" id="clear-search">Clear Search</button></div><div class="content-grid-full" id="search-grid"></div></section></main><div class="player-modal" id="player-modal"><div class="player-overlay" id="player-overlay"></div><div class="player-container"><div class="player-header"><button class="player-close" id="player-close"><i class="fas fa-times"></i></button></div><div class="player-body"><div class="player-video-section"><iframe class="video-frame" id="video-frame" title="Video Player" ></iframe></div><div class="player-sidebar"><div class="player-info"><h3 id="player-title">Title</h3><div class="player-meta"><span class="player-rating" ><i class="fas fa-star"></i><span id="player-rating-value">N/A</span></span ><span id="player-year">2023</span><span id="player-type">Movie</span></div><p id="player-description">Description</p></div><div class="source-selection"><label>Video Source:</label><div class="source-buttons" id="source-buttons"></div></div><div class="tv-controls" id="tv-controls"><div class="season-episode-controls"><div class="season-selection"><label>Season</label><select id="season-select"></select></div></div><div class="episodes-section"><h4>Episodes</h4><div class="episodes-list" id="episodes-list"></div></div></div></div></div></div></div><div class="account-modal" id="account-modal"><div class="account-container"><button class="modal-close" id="account-close"><i class="fas fa-times"></i></button><div class="account-content"><h2>Account Settings</h2><div class="account-info"><div class="info-row"><label>Email:</label><span id="account-email"></span></div><div class="info-row"><label>Member Since:</label><span id="account-member-since"></span></div></div><div class="account-actions"><button class="btn-secondary" id="change-password"> Change Password </button></div></div></div></div><div id="notification-container"></div></body><script src="streaming-platform.js"></script></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>OnlyBinge - Premium Streaming Platform</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="streaming-platform.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  </head>
+  <body>
+    <div class="loading-screen" id="loading-screen">
+      <div class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">ONLYBINGE</div>
+      </div>
+    </div>
+
+    <div class="auth-container" id="auth-container">
+      <div class="auth-backdrop"></div>
+      <div class="auth-box">
+        <div class="auth-logo">
+          <h1>ONLYBINGE</h1>
+          <p>Premium Streaming Entertainment</p>
+        </div>
+
+        <div class="auth-form active" id="signin-form">
+          <h2>Sign In</h2>
+          <form>
+            <div class="form-group">
+              <input type="email" id="signin-email" required placeholder=" " />
+              <label>Email address</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="signin-password"
+                required
+                placeholder=" "
+              />
+              <label>Password</label>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+          </form>
+          <div class="auth-footer">
+            <p>
+              New to OnlyBinge? <a href="#" id="show-signup">Sign up now</a>
+            </p>
+            <p><a href="#" id="show-reset">Forgot password?</a></p>
+          </div>
+        </div>
+
+        <div class="auth-form" id="signup-form">
+          <h2>Create Account</h2>
+          <form>
+            <div class="form-group">
+              <input type="email" id="signup-email" required placeholder=" " />
+              <label>Email address</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="signup-password"
+                required
+                placeholder=" "
+              />
+              <label>Password (min 6 characters)</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="signup-confirm"
+                required
+                placeholder=" "
+              />
+              <label>Confirm password</label>
+            </div>
+            <button type="submit" class="btn-primary">Sign Up</button>
+          </form>
+          <div class="auth-footer">
+            <p>
+              Already have an account? <a href="#" id="show-signin">Sign in</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="auth-form" id="reset-form">
+          <h2>Reset Password</h2>
+          <p class="auth-description">
+            We'll send you a password reset link to your email.
+          </p>
+          <form>
+            <div class="form-group">
+              <input type="email" id="reset-email" required placeholder=" " />
+              <label>Email address</label>
+            </div>
+            <button type="submit" class="btn-primary">Send Reset Link</button>
+          </form>
+          <div class="auth-footer">
+            <p><a href="#" id="back-signin">Back to Sign In</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header" id="main-header">
+      <div class="header-left">
+        <div class="logo">ONLYBINGE</div>
+        <nav class="main-nav">
+          <a href="#" class="nav-link active" data-section="home">Home</a>
+          <a href="#" class="nav-link" data-section="movies">Movies</a>
+          <a href="#" class="nav-link" data-section="tv">TV Shows</a>
+          <a href="#" class="nav-link" data-section="mylist">My List</a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            class="search-input"
+            id="main-search-input"
+            placeholder="Search movies & shows"
+          />
+        </div>
+        <div class="user-menu">
+          <img
+            src="https://avatar.iran.liara.run/public/43"
+            alt="User Avatar"
+            class="user-avatar"
+          />
+          <div class="user-dropdown">
+            <a href="#" id="account-link"
+              ><i class="fas fa-user"></i> Account</a
+            >
+            <a href="#" id="logout-link"
+              ><i class="fas fa-sign-out-alt"></i> Sign Out</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero-section" id="hero-section">
+      <div class="hero-backdrop"></div>
+      <div class="hero-content">
+        <h1 class="hero-title" id="hero-title">Featured Today</h1>
+        <div class="hero-meta" id="hero-meta">
+          <span class="hero-rating"><i class="fas fa-star"></i> 8.5</span>
+          <span>2023</span>
+          <span>Action, Adventure</span>
+        </div>
+        <p class="hero-description" id="hero-description">
+          Discover the most amazing movies and shows, handpicked just for you.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" id="hero-watch-btn">
+            <i class="fas fa-play"></i> Watch Now
+          </button>
+          <button class="hero-bookmark" id="hero-bookmark-btn-new">
+            <i class="fas fa-bookmark-o"></i> Add to List
+          </button>
+        </div>
+      </div>
+      <div class="hero-gradient"></div>
+    </section>
+
+    <main class="main-content" id="main-content">
+      <section class="content-section active" id="home-section">
+        <div class="content-row">
+          <div class="section-header">
+            <h2 class="section-title">Trending Now</h2>
+          </div>
+          <div class="content-grid" id="trending-grid"></div>
+        </div>
+        <div class="content-row">
+          <div class="section-header">
+            <h2 class="section-title">Popular Movies</h2>
+          </div>
+          <div class="content-grid" id="popular-movies-grid"></div>
+        </div>
+        <div class="content-row">
+          <div class="section-header">
+            <h2 class="section-title">Popular TV Shows</h2>
+          </div>
+          <div class="content-grid" id="popular-tv-grid"></div>
+        </div>
+      </section>
+
+      <section class="content-section" id="movies-section">
+        <div class="section-header">
+          <h2>Movies</h2>
+          <div class="genre-filters">
+            <button class="genre-btn active" data-genre="all">All</button>
+            <button class="genre-btn" data-genre="28">Action</button>
+            <button class="genre-btn" data-genre="35">Comedy</button>
+            <button class="genre-btn" data-genre="18">Drama</button>
+            <button class="genre-btn" data-genre="27">Horror</button>
+            <button class="genre-btn" data-genre="878">Sci-Fi</button>
+          </div>
+        </div>
+        <div class="content-grid-full" id="movies-grid"></div>
+      </section>
+
+      <section class="content-section" id="tv-section">
+        <div class="section-header">
+          <h2>TV Shows</h2>
+          <div class="genre-filters">
+            <button class="genre-btn active" data-genre="all">All</button>
+            <button class="genre-btn" data-genre="10759">Action</button>
+            <button class="genre-btn" data-genre="35">Comedy</button>
+            <button class="genre-btn" data-genre="18">Drama</button>
+            <button class="genre-btn" data-genre="9648">Mystery</button>
+            <button class="genre-btn" data-genre="10765">Sci-Fi</button>
+          </div>
+        </div>
+        <div class="content-grid-full" id="tv-grid"></div>
+      </section>
+
+      <section class="content-section" id="mylist-section">
+        <div class="section-header">
+          <h2>My List</h2>
+        </div>
+        <div class="content-grid-full" id="mylist-grid"></div>
+      </section>
+
+      <section class="content-section" id="search-section">
+        <div class="search-results-header">
+          <h2>Search Results</h2>
+          <button class="view-all-btn" id="clear-search">Clear Search</button>
+        </div>
+        <div class="content-grid-full" id="search-grid"></div>
+      </section>
+    </main>
+
+    <div class="player-modal" id="player-modal">
+      <div class="player-overlay" id="player-overlay"></div>
+      <div class="player-container">
+        <div class="player-header">
+          <button class="player-close" id="player-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="player-body">
+          <div class="player-video-section">
+            <iframe
+              class="video-frame"
+              id="video-frame"
+              title="Video Player"
+            ></iframe>
+          </div>
+          <div class="player-sidebar">
+            <div class="player-info">
+              <h3 id="player-title">Title</h3>
+              <div class="player-meta">
+                <span class="player-rating"
+                  ><i class="fas fa-star"></i>
+                  <span id="player-rating-value">N/A</span></span
+                >
+                <span id="player-year">2023</span>
+                <span id="player-type">Movie</span>
+              </div>
+              <p id="player-description">Description</p>
+            </div>
+
+            <div class="source-selection">
+              <label>Video Source:</label>
+              <div class="source-buttons" id="source-buttons"></div>
+            </div>
+
+            <div class="tv-controls" id="tv-controls">
+              <div class="season-episode-controls">
+                <div class="season-selection">
+                  <label>Season</label>
+                  <select id="season-select"></select>
+                </div>
+              </div>
+
+              <div class="episodes-section">
+                <h4>Episodes</h4>
+                <div class="episodes-list" id="episodes-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-modal" id="account-modal">
+      <div class="account-container">
+        <button class="modal-close" id="account-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="account-content">
+          <h2>Account Settings</h2>
+          <div class="account-info">
+            <div class="info-row">
+              <label>Email:</label>
+              <span id="account-email"></span>
+            </div>
+            <div class="info-row">
+              <label>Member Since:</label>
+              <span id="account-member-since"></span>
+            </div>
+          </div>
+          <div class="account-actions">
+            <button class="btn-secondary" id="change-password">
+              Change Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extension Recommendation Popup -->
+    <div class="extension-popup" id="extension-popup">
+      <div class="extension-popup-overlay"></div>
+      <div class="extension-popup-content">
+        <button class="extension-popup-close" id="close-extension-popup">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="extension-popup-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h2>Enhance Your Viewing Experience</h2>
+        <p class="extension-popup-description">
+          We recommend installing
+          <strong>"Pop up blocker for Chrome™ - Poper Blocker"</strong> to avoid
+          interruptions and multiple popups while watching movies on OnlyBinge.
+          This extension is completely safe and will significantly improve your
+          streaming experience.
+        </p>
+        <p class="extension-popup-note">
+          <i class="fas fa-laptop"></i>
+          <strong>Best Experience:</strong> For optimal viewing, we recommend
+          using a laptop or desktop computer, as OnlyBinge is not yet fully
+          optimized for mobile devices.
+        </p>
+        <div class="extension-popup-actions">
+          <button class="btn-extension-install" id="install-extension-btn">
+            <i class="fas fa-download"></i> Install Extension
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="notification-container"></div>
+  </body>
+  <script src="streaming-platform.js"></script>
+</html>
