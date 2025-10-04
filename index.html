@@ -899,29 +899,176 @@
         <button class="modal-close" id="account-close">
           <i class="fas fa-times"></i>
         </button>
-        <div class="account-content">
-          <h2>Account Settings</h2>
-          <div class="account-info">
-            <div class="info-row">
-              <label>Email:</label>
-              <span id="account-email"></span>
-            </div>
-            <div class="info-row">
-              <label>Member Since:</label>
-              <span id="account-member-since"></span>
-            </div>
-            <div class="info-row">
-              <label>Subscription Status:</label>
-              <span
-                id="subscription-status-text"
-                class="subscription-status"
-              ></span>
+
+        <div class="profile-header">
+          <div class="profile-avatar-section">
+            <div class="profile-avatar-wrapper">
+              <img
+                id="profile-avatar-display"
+                src="https://avatar.iran.liara.run/public/43"
+                alt="Profile Avatar"
+                class="profile-avatar"
+              />
+              <div class="avatar-upload-overlay">
+                <i class="fas fa-camera"></i>
+                <span>Change Photo</span>
+              </div>
+              <input
+                type="file"
+                id="avatar-upload-input"
+                accept="image/png,image/jpeg,image/jpg,image/webp"
+                style="display: none"
+              />
             </div>
           </div>
-          <div class="account-actions">
-            <button class="btn-secondary" id="change-password">
-              Change Password
+
+          <div class="profile-info-section">
+            <div class="profile-edit-group">
+              <label for="profile-display-name">Display Name</label>
+              <input
+                type="text"
+                id="profile-display-name"
+                class="profile-input"
+                placeholder="Enter your name"
+                maxlength="50"
+              />
+            </div>
+
+            <div class="profile-edit-group">
+              <label for="profile-favorite-genre">Favorite Genre</label>
+              <select id="profile-favorite-genre" class="profile-input">
+                <option value="">Select your favorite genre</option>
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="thriller">Thriller</option>
+                <option value="romance">Romance</option>
+                <option value="documentary">Documentary</option>
+                <option value="animation">Animation</option>
+              </select>
+            </div>
+
+            <button class="btn-save-profile" id="save-profile-btn">
+              <i class="fas fa-save"></i> Save Profile
             </button>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <button class="profile-tab active" data-tab="stats">
+            <i class="fas fa-chart-bar"></i> Stats
+          </button>
+          <button class="profile-tab" data-tab="badges">
+            <i class="fas fa-trophy"></i> Badges
+          </button>
+          <button class="profile-tab" data-tab="settings">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+        </div>
+
+        <!-- Stats Tab -->
+        <div class="profile-tab-content active" id="stats-tab">
+          <div class="stats-grid">
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-clock"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-watch-time">0h</div>
+                <div class="stat-label">Watch Time</div>
+              </div>
+            </div>
+
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-film"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-movies">0</div>
+                <div class="stat-label">Movies Watched</div>
+              </div>
+            </div>
+
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-tv"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-series">0</div>
+                <div class="stat-label">Series Started</div>
+              </div>
+            </div>
+
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-bookmark"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-bookmarks">0</div>
+                <div class="stat-label">Bookmarks</div>
+              </div>
+            </div>
+
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-fire"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-streak">0</div>
+                <div class="stat-label">Day Streak</div>
+              </div>
+            </div>
+
+            <div class="profile-stat-card">
+              <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-badges">0</div>
+                <div class="stat-label">Badges Earned</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges Tab -->
+        <div class="profile-tab-content" id="badges-tab">
+          <div class="badges-header">
+            <h3>Your Achievements</h3>
+            <p class="badges-subtitle">
+              Earn badges by watching content and exploring the platform
+            </p>
+          </div>
+          <div class="badges-grid" id="badges-grid">
+            <!-- Badges will be dynamically loaded here -->
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="profile-tab-content" id="settings-tab">
+          <div class="settings-section">
+            <div class="setting-item">
+              <div class="setting-info">
+                <h4>Email Address</h4>
+                <p id="settings-email">user@example.com</p>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <h4>Member Since</h4>
+                <p id="settings-member-since">January 2024</p>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <h4>Subscription Status</h4>
+                <p>
+                  <span
+                    id="settings-subscription-status"
+                    class="subscription-status"
+                    >Active</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="setting-actions">
+              <button class="btn-secondary" id="change-password-settings">
+                <i class="fas fa-key"></i> Change Password
+              </button>
+            </div>
           </div>
         </div>
       </div>
